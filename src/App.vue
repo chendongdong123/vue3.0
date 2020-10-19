@@ -1,18 +1,39 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div>
+    <img alt="Vue logo" src="./assets/logo.png" />
+    <h2>红色浪漫点餐系统</h2>
+    <div>请选择第一位美女为你服务</div>
+    <p>
+      <button
+        v-for="(item, index) in girls"
+        :key="{ index }"
+        @click="selectGirlFun(index)"
+      >
+        {{ index }}:-{{ item }}
+      </button>
+    </p>
+    <div>你选择了【123123{{ selectGirl }}】姑娘为你服务</div>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
-
+import { defineComponent, ref } from 'vue'
+// reactive
 export default defineComponent({
   name: 'App',
-  components: {
-    HelloWorld
-  }
-});
+  setup() {
+    const girls = ref(['大脚', '刘颖', '小红'])
+    const selectGirl = ref('')
+    const selectGirlFun = (index: number) => {
+      selectGirl.value = girls.value[index]
+    }
+    return {
+      girls,
+      selectGirl,
+      selectGirlFun,
+    }
+  },
+})
 </script>
 
 <style>
